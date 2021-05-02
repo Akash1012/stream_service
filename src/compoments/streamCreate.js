@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form'
+
+import { createStream } from '../actions/index'
 
 const StreamCreate = (props) => {
 
     const renderError = (meta) => {
-        console.log(meta.touched)
-        console.log(meta.error)
         if (meta.touched && meta.error) {
             return (
                 <div className="ui error message">
@@ -29,7 +30,7 @@ const StreamCreate = (props) => {
     }
 
     const onSubmit = (formValues) => {
-        console.log(formValues)
+        props.createStream(formValues)
     }
 
     return (
@@ -56,7 +57,17 @@ const validate = (formValues) => {
     return errors;
 }
 
-export default reduxForm({
+const mapStateToDispatch = (dispatch) => {
+    return {
+        createStream: (formValues) => dispatch(createStream(formValues))
+    }
+}
+
+
+const formWrapped = reduxForm({
     form: 'streamCreate',
     validate: validate
 })(StreamCreate)
+
+
+export default connect(null, mapStateToDispatch)(formWrapped)
