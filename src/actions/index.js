@@ -1,5 +1,6 @@
 import { SIGNIN, SIGNOUT, CRETAESTREAM, FETCHSTREAM, FETCHSTREAMS, EDITSTREAM, DELETESTREAM } from './types'
 import axiosApi from './api'
+import history from './history'
 
 export const signIn = (userId) => {
     return {
@@ -15,9 +16,11 @@ export const signOut = () => {
 }
 
 export const createStream = (formValues) => {
-    return async (dispatch) => {
-        const response = await axiosApi.post('/streams', formValues)
+    return async (dispatch, getState) => {
+        const { userId } = getState().auth;
+        const response = await axiosApi.post('/streams', { ...formValues, userId })
         dispatch({ type: CRETAESTREAM, payload: response.data })
+        history.push('/');
     }
 }
 

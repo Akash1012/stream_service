@@ -17,12 +17,11 @@ const StreamCreate = (props) => {
     }
 
     const renderInput = (formProps) => {
-        console.log("formProps", formProps)
         const className = `{field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}}`
         return (
             <div className={className}>
                 <label>{formProps.label}</label>
-                <input autoComplete="off" {...formProps.input} />
+                <input  {...formProps.input} />
                 {/* onChange={formProps.input.onChange} value={formProps.input.value} */}
                 {renderError(formProps.meta)}
             </div>
