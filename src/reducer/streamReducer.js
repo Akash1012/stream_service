@@ -17,7 +17,7 @@ const streamReducer = (state = INITIALSTATE, action) => {
             return {
                 ...state,
                 FETCHSTREAMS: {
-                    ..._.mapKeys(action.payload, 'id')
+                    ..._.mapKeys(action.payload, 'id') // taking id out form payload and make that id key of each object
                 }
             }
 
@@ -30,6 +30,7 @@ const streamReducer = (state = INITIALSTATE, action) => {
             }
         case CRETAESTREAM:
             return {
+                ...state,
                 CRETAESTREAM: {
                     [action.payload.id]: action.payload // Key and value pair
                 }

@@ -32,16 +32,20 @@ export const fetchStreams = () => {
 }
 
 export const fetchStream = (id) => {
+    console.log("id", id)
     return async (dispatch) => {
-        const response = await axiosApi.get(`{/streams/${id}}`)
+        const response = await axiosApi.get(`/streams/${id}`)
+        console.log("response", response.data)
         dispatch({ type: FETCHSTREAM, payload: response.data })
     }
 }
 
 export const editStream = (id, formValues) => {
+    console.log("Edit", id, formValues)
     return async (dispatch) => {
-        const response = await axiosApi.put(`{/streams/${id}}`, formValues)
+        const response = await axiosApi.patch(`/streams/${id}`, formValues)
         dispatch({ type: EDITSTREAM, payload: response.data })
+        history.push('/');
     }
 }
 

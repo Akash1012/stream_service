@@ -5,7 +5,7 @@ import { fetchStreams } from '../actions/index'
 
 const StreamList = (props) => {
     useEffect(() => {
-        props.fetchStreams()
+        props.abc()
     }, [])
 
 
@@ -13,7 +13,7 @@ const StreamList = (props) => {
         if (stream.userId === props.currentUserId) {
             return (
                 <div className="right floated content">
-                    <button className="ui button primary">Edit</button>
+                    <Link to={`/streams/edit/${stream.id}`} className="ui button primary">Edit</Link>
                     <button className="ui button negative">Button</button>
                 </div>
             )
@@ -57,11 +57,13 @@ const StreamList = (props) => {
 
 const mapStateToDispatch = (dispatch) => {
     return {
-        fetchStreams: () => dispatch(fetchStreams())
+        abc: () => dispatch(fetchStreams())
     }
 }
 
 const mapStateToProps = (state) => {
+
+    console.log("State", state)
     return {
         streams: Object.values(state.streams.FETCHSTREAMS),
         currentUserId: state.auth.userId,
