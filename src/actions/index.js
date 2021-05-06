@@ -51,8 +51,10 @@ export const editStream = (id, formValues) => {
 
 export const deleteStream = (id, formValues) => {
     return async (dispatch) => {
-        const response = await axiosApi.put(`{/streams/${id}}`, formValues)
+        const response = await axiosApi.delete(`/streams/${id}`, formValues)
         dispatch({ type: DELETESTREAM, payload: id })
+
+        history.push('/');
     }
 }
 
