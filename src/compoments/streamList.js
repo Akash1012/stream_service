@@ -5,7 +5,7 @@ import { fetchStreams } from '../actions/index'
 
 const StreamList = (props) => {
     useEffect(() => {
-        props.abc()
+        props.list()
     }, [])
 
 
@@ -27,7 +27,7 @@ const StreamList = (props) => {
                     {renderAdmin(stream)}
                     <i className="large middle aligned icon camera" />
                     <div className="content">
-                        {stream.title}
+                        <Link className="header" to={`/streams/${stream.id}`}>{stream.title}</Link>
                         <div className="description">{stream.description}</div>
                     </div>
                 </div>
@@ -57,13 +57,11 @@ const StreamList = (props) => {
 
 const mapStateToDispatch = (dispatch) => {
     return {
-        abc: () => dispatch(fetchStreams())
+        list: () => dispatch(fetchStreams())
     }
 }
 
 const mapStateToProps = (state) => {
-
-    console.log("State", state)
     return {
         streams: Object.values(state.streams.FETCHSTREAMS),
         currentUserId: state.auth.userId,
