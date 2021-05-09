@@ -1,5 +1,3 @@
-import { actionTypes } from "redux-form"
-
 export const SIGNIN = "SIGNIN"
 export const SIGNOUT = "SIGNOUT"
 export const CRETAESTREAM = "CRETAESTREAM"
