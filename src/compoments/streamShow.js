@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { fetchStream } from '../actions/index'
+import flv from 'flv.js'
+
+import { fetchStream } from '../actions/index';
 
 const StreamShow = (props) => {
 
+    const inputRef = useRef(null)
+
     React.useEffect(() => {
-        props.fetchStream(props.match.params.id)
+        props.fetchStream(props.match.params.id);
+        var flvPlayer = flv.createPlayer({
+            type: 'flv',
+            url: `http://localhost:8000/live/${props.match.params.id}.flv`
+        });
+        flvPlayer.attachMediaElement(inputRef.current);
+        flvPlayer.load();
+        // flvPlayer.play(); // stop automatic auto play
+
+        return (() => {
+            flvPlayer.destroy()
+        })
     }, [])
 
 
     return (
         <div>
-            Stream Show
+            <video ref={inputRef} style={{ width: '100%' }} controls={true} />
             {props.stream ? <div>
                 <h1>{props.stream.title}</h1>
                 <h5>{props.stream.description}</h5>
-            </div> : null}
+            </div> : <h2>Loading ... </h2>}
         </div>
     )
 }
